@@ -11,7 +11,13 @@ const displayData = (value) => {
     console.log(value);
 
     const inputField=document.getElementById('exampleInput');
-inputField.value=`${value.length} items found for category Entertainment`;
+ if(value.length1!==0){
+    inputField.value=`${value.length} items found for category Entertainment`;
+ }
+ else{
+    inputField.value=`no items found`;
+   
+ }
 
 
     const showPart = document.getElementById('show-part');
@@ -54,7 +60,7 @@ inputField.value=`${value.length} items found for category Entertainment`;
 `
         showPart.appendChild(div);
 
-
+spinRole.classList.add('d-none');
 
     });
 }
@@ -136,8 +142,9 @@ const blog = () => {
 
 }
 
-
+const spinRole=document.getElementById('spin');
 const ctgClick=(data)=>{
+    spinRole.classList.remove('d-none');
 console.log(data);
 loadData(data);
 }
