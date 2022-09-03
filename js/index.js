@@ -10,18 +10,25 @@ const loadData = (num) => {
 const displayData = (value) => {
     console.log(value);
 
+    // sorting part
+
+    value.sort((a, b) => b.total_view - a.total_view);
+    // console.log(value);
+
     const inputField = document.getElementById('exampleInput');
     if (value.length1 !== 0) {
         inputField.value = `${value.length} items found for category Entertainment`;
     }
     else {
         inputField.value = `no items found`;
-      
+
     }
-    const spinRole=document.getElementById('spin');
-if(value.length===0){
-      spinRole.classList.add('d-none');
-}
+    const spinRole = document.getElementById('spin');
+    if (value.length === 0) {
+        spinRole.classList.add('d-none');
+    }
+
+
 
     const showPart = document.getElementById('show-part');
     showPart.innerHTML = '';
@@ -29,6 +36,9 @@ if(value.length===0){
         // console.log(data);
 
         // console.log(data);
+
+
+
         const { _id, title, details, image_url } = data;
         // console.log(_id);
         const div = document.createElement('div');
@@ -87,7 +97,7 @@ const modalOne = document.getElementById('modal-one');
 const diplayModalOne = (data) => {
     modalOne.innerHTML = ``;
 
-    const { author, _id } = data;
+    const { author, _id, total_view } = data;
     // console.log(author);
     const { img, name, published_date } = author;
 
@@ -95,9 +105,10 @@ const diplayModalOne = (data) => {
     div.innerHTML = `
      <img class="img-fluid" src="${img}">
     <p>Id:${_id}</p>
-     <p>Name:${name ? name : 'name not avialable'}</p>
+    <p>Views : ${total_view ? total_view : 'no views'}</p>
+     <p>Name : ${name ? name : 'name not avialable'}</p>
       
-    <p>Release Date:${published_date ? published_date : 'no data'}</p>
+    <p>Release Date : ${published_date ? published_date : 'no data'}</p>
 
 `
     modalOne.appendChild(div);
