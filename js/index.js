@@ -85,6 +85,14 @@ const displayCategory=(value)=>{
    
  value.forEach(data=>{
      console.log(data.category_name);
+const div=document.createElement('div');
+ div.classList.add('col');
+div.innerHTML=`
+<h6 class="text-center">${data.category_name}</h6>
+`
+rowColumn.appendChild(div);
+
+
  })
 }
 
