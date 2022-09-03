@@ -1,16 +1,26 @@
 
-const loadData = () => {
-    fetch(`https://openapi.programming-hero.com/api/news/category/01`)
+const loadData = (num) => {
+ 
+    fetch(`https://openapi.programming-hero.com/api/news/category/${num}`)
         .then(res => res.json())
         .then(data => displayData(data.data))
+
 }
 
 const displayData = (value) => {
-    // console.log(value);
+    console.log(value);
+
+    const inputField=document.getElementById('exampleInput');
+inputField.value=`${value.length} items found for category Entertainment`;
+
+
     const showPart = document.getElementById('show-part');
+   showPart.innerHTML='';
     value.forEach(data => {
         // console.log(data);
-        const { _id, title, details, image_url, category_id } = data;
+      
+        // console.log(data);
+        const { _id, title, details, image_url} = data;
         // console.log(_id);
         const div = document.createElement('div');
         div.classList.add('col');
@@ -21,14 +31,14 @@ const displayData = (value) => {
                 <h5 class="card-title">${title}</h5>
                 <p class="card-text">${details.slice(0, 50) ? details.slice(0, 60) + '.....' : '...'}</p>
                 </div>
-                <div  style="height:50px" class="d-flex justify-content-between p-1">
+                <div  class="d-flex justify-content-between p-1">
                 <div style="display:flex;">
                     <div>
                         <img  class="rounded-circle" style="width:30px" src="${data.author.img}">
                     </div>
                     <div>
-                        <b>${data.author.name} </b>
-                        <p>${data.author.published_date}</p>
+                        <b>${data.author.name?data.author.name:'no name'} </b>
+                        <p>${data.author.published_date?data.author.published_date:'no date'}</p>
                     </div>
                 </div>
                 <div>
@@ -50,6 +60,12 @@ const displayData = (value) => {
 }
 
 
+
+
+
+
+// modal one part
+
 const clicker = (data) => {
     fetch(`https://openapi.programming-hero.com/api/news/${data}`)
         .then(res => res.json())
@@ -57,51 +73,55 @@ const clicker = (data) => {
 
 }
 
+  const modalOne = document.getElementById('modal-one');
+  
 const diplayModalOne = (data) => {
-    const modalOne = document.getElementById('modal-one');
-    modalOne.innerHTML = ``;
+  modalOne.innerHTML=``;
+  
     const { author, _id } = data;
-    
+// console.log(author);
     const { img, name, published_date } = author;
+  
     const div = document.createElement('div');
     div.innerHTML = `
      <img class="img-fluid" src="${img}">
     <p>Id:${_id}</p>
-     <p>Name:${name === 'system' ? 'name not avialable' : name}</p>
-    <p>Release Date:${published_date}</p>
-    
-    `
+     <p>Name:${name ? name : 'name not avialable'}</p>
+      
+    <p>Release Date:${published_date ? published_date : 'no data'}</p>
+
+`
     modalOne.appendChild(div);
 }
 
 // categories part
 
 fetch(`https://openapi.programming-hero.com/api/news/categories`)
-.then(res=>res.json())
-.then(data=> displayCategory(data.data.news_category))
+    .then(res => res.json())
+    .then(data => displayCategory(data.data.news_category))
 
-const rowColumn=document.getElementById('row-column');
-const displayCategory=(value)=>{
-   
- value.forEach(data=>{
-     console.log(data.category_name);
-const div=document.createElement('div');
- div.classList.add('col');
-div.innerHTML=`
-<h6 class="text-center">${data.category_name}</h6>
+const rowColumn = document.getElementById('row-column');
+const displayCategory = (value) => {
+
+    value.forEach(data => {
+        // console.log(data.category_name);
+        const div = document.createElement('div');
+        div.classList.add('col');
+        div.innerHTML = `
+<h6 onclick="ctgClick('${data.category_id}')" class="btn   text-center">${data.category_name}</h6>
 `
-rowColumn.appendChild(div);
+        rowColumn.appendChild(div);
 
 
- })
+    })
 }
 
 
 
 // Modal 2 blog part
 const blog = () => {
-  const modalTwoPart=document.getElementById('modal-two');
-  modalTwoPart.innerHTML=`
+    const modalTwoPart = document.getElementById('modal-two');
+    modalTwoPart.innerHTML = `
   <p>Var : var variables can be updated and re-declared within its scope; 
   <p>Let : let variables can be updated but not re-declared; 
   <p>Const : const variables can neither be updated nor re-declared;
@@ -116,4 +136,11 @@ const blog = () => {
 
 }
 
-loadData();
+
+const ctgClick=(data)=>{
+console.log(data);
+loadData(data);
+}
+
+
+// loadData('08');
