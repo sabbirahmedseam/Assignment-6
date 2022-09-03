@@ -1,6 +1,6 @@
 
 const loadData = (num) => {
- 
+
     fetch(`https://openapi.programming-hero.com/api/news/category/${num}`)
         .then(res => res.json())
         .then(data => displayData(data.data))
@@ -10,23 +10,26 @@ const loadData = (num) => {
 const displayData = (value) => {
     console.log(value);
 
-    const inputField=document.getElementById('exampleInput');
- if(value.length1!==0){
-    inputField.value=`${value.length} items found for category Entertainment`;
- }
- else{
-    inputField.value=`no items found`;
-   
- }
-
+    const inputField = document.getElementById('exampleInput');
+    if (value.length1 !== 0) {
+        inputField.value = `${value.length} items found for category Entertainment`;
+    }
+    else {
+        inputField.value = `no items found`;
+      
+    }
+    const spinRole=document.getElementById('spin');
+if(value.length===0){
+      spinRole.classList.add('d-none');
+}
 
     const showPart = document.getElementById('show-part');
-   showPart.innerHTML='';
+    showPart.innerHTML = '';
     value.forEach(data => {
         // console.log(data);
-      
+
         // console.log(data);
-        const { _id, title, details, image_url} = data;
+        const { _id, title, details, image_url } = data;
         // console.log(_id);
         const div = document.createElement('div');
         div.classList.add('col');
@@ -43,8 +46,8 @@ const displayData = (value) => {
                         <img  class="rounded-circle" style="width:30px" src="${data.author.img}">
                     </div>
                     <div>
-                        <b>${data.author.name?data.author.name:'no name'} </b>
-                        <p>${data.author.published_date?data.author.published_date:'no date'}</p>
+                        <b>${data.author.name ? data.author.name : 'no name'} </b>
+                        <p>${data.author.published_date ? data.author.published_date : 'no date'}</p>
                     </div>
                 </div>
                 <div>
@@ -60,7 +63,7 @@ const displayData = (value) => {
 `
         showPart.appendChild(div);
 
-spinRole.classList.add('d-none');
+        spinRole.classList.add('d-none');
 
     });
 }
@@ -79,15 +82,15 @@ const clicker = (data) => {
 
 }
 
-  const modalOne = document.getElementById('modal-one');
-  
+const modalOne = document.getElementById('modal-one');
+
 const diplayModalOne = (data) => {
-  modalOne.innerHTML=``;
-  
+    modalOne.innerHTML = ``;
+
     const { author, _id } = data;
-// console.log(author);
+    // console.log(author);
     const { img, name, published_date } = author;
-  
+
     const div = document.createElement('div');
     div.innerHTML = `
      <img class="img-fluid" src="${img}">
@@ -142,11 +145,11 @@ const blog = () => {
 
 }
 
-const spinRole=document.getElementById('spin');
-const ctgClick=(data)=>{
+const spinRole = document.getElementById('spin');
+const ctgClick = (data) => {
     spinRole.classList.remove('d-none');
-console.log(data);
-loadData(data);
+    console.log(data);
+    loadData(data);
 }
 
 
