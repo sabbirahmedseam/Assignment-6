@@ -13,8 +13,9 @@ const displayData = (value) => {
 
 
     // sorting part
-
     value.sort((a, b) => b.total_view - a.total_view);
+
+
     // console.log(value);
 
     const inputField = document.getElementById('exampleInput');
@@ -61,6 +62,8 @@ const displayData = (value) => {
                 <b>${data.author.name ? data.author.name : 'no name'} </b>
                 <p>${data.author.published_date ? data.author.published_date : 'no date'}</p>
                 </div>
+                </div>
+                <div> <i class="fa-regular fa-eye"></i> <b>1.5M </b>
                 </div>
                 <div>
                 <button onclick="clicker('${_id}')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -159,5 +162,7 @@ const ctgClick = (data) => {
     console.log(data);
     loadData(data);
 }
+
+
 
 loadData('08');
